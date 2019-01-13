@@ -4,6 +4,8 @@ const GAMESTATE = {
     RUNNING: 1,
     MENU: 2,
     GAMEOVER: 3,
+    NEWLEVEL: 4,
+
 }
 
 class Game {
@@ -16,39 +18,55 @@ class Game {
         this.ball = new Ball(this);
         this.gameObjects= [];
         this.lives = 3;
-        let brick = new Brick(this,{x: 20, y: 20})
+        this.bricks = [];
+        this.levels = [level1, level2];
+        this.currentLevel = 0;
+        // let brick = new Brick(this,{x: 20, y: 20})
         new InputHandler(this.paddle, this);
 
     }
 
     start(){
         
-        if(this.gamestate !== GAMESTATE.MENU) return;
+        if(this.gamestate !== GAMESTATE.MENU && this.gamestate !== GAMESTATE.NEWLEVEL) return;
         // let bricks = [];
         // for(let i=0;i<10;i++){
         //     bricks.push(new Brick(this,{x: 20 + i*52, y: 30}))
         // }
 
-        let bricks = buildLevel(game,level1);
-        this.gameObjects = [this.ball, this.paddle, ...bricks];
+        this.bricks = buildLevel(game,this.levels[this.currentLevel]);
+        this.ball.reset();
+        this.gameObjects = [this.ball, this.paddle];
         this.gamestate = GAMESTATE.RUNNING;
     }
 
     update(deltatime){
         if(this.lives === 0) this.gamestate = GAMESTATE.GAMEOVER;
         if(this.gamestate === GAMESTATE.PAUSED || this.gamestate === GAMESTATE.MENU || this.gamestate === GAMESTATE.GAMEOVER) return;
+
+        if(this.bricks.length === 0){
+            // console.log("new level");
+            this.currentLevel++;
+            this.gamestate = GAMESTATE.NEWLEVEL;
+            this.start()
+        }
+
         // this.paddle.update(deltatime);
         // this.ball.update(deltatime);
 
-        this.gameObjects.forEach(obj => obj.update(deltatime));
-        this.gameObjects = this.gameObjects.filter(obj => !obj.markedForDeletion);
+        // this.gameObjects.forEach(obj => obj.update(deltatime));
+        [...this.gameObjects,...this.bricks].forEach(obj => obj.update(deltatime));
+
+        this.bricks = this.bricks.filter(brick => !brick.markedForDeletion);
     }
 
     draw(ctx){
         // this.paddle.draw(ctx);
         // this.ball.draw(ctx);
 
-        this.gameObjects.forEach(obj => obj.draw(ctx));
+        // this.gameObjects.forEach(obj => obj.draw(ctx));
+        [...this.gameObjects, ...this.bricks].forEach(obj => obj.draw(ctx));
+
         if(this.gamestate == GAMESTATE.PAUSED){
             ctx.rect(0,0,this.gameWidth, this.gameHeight);
             ctx.fillStyle = "rgba(0,0,0,0.5)";
