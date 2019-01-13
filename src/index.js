@@ -12,7 +12,7 @@ const GAME_HEIGHT = 600;
 
 // paddle.draw(ctx); 
 let game = new Game(GAME_WIDTH, GAME_HEIGHT);
-game.start();
+// game.start();
 
 let lastTime = 0;
 

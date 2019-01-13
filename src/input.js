@@ -11,9 +11,12 @@ class InputHandler {
                     // alert('move right');
                     paddle.moveRight();
                     break;
-                case 32:
+                case 27:
                     // alert('move right');
                     game.togglepause();
+                    break;
+                case 32:
+                    game.start();
                     break;
             }
         });
