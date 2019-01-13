@@ -3,11 +3,11 @@ class Ball {
         this.image = document.getElementById('img_ball');
         this.speed = {
             x: 5,
-            y :3
+            y : -2
         };
         this.position = {
             x: 10,
-            y: 10,
+            y: 200,
         };
         this.size = 16;
         this.gameWidth = game.gameWidth;
