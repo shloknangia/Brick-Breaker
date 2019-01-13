@@ -5,14 +5,25 @@ class Ball {
             x: 5,
             y : -2
         };
-        this.position = {
-            x: 10,
-            y: 200,
-        };
+        
         this.size = 16;
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;
         this.game = game;
+        this.reset();
+    }
+
+
+    reset(){
+        this.position = {
+            x: 10,
+            y: 400,
+        };
+
+        this.speed = {
+            x: 5,
+            y : -2
+        };
     }
 
     draw(ctx){
@@ -28,8 +39,13 @@ class Ball {
         if(this.position.x > this.gameWidth - this.size || this.position.x < 0 ){
             this.speed.x = -this.speed.x;
         }
-        if(this.position.y > this.gameHeight - this.size || this.position.y <0){
+        if(this.position.y <0){
             this.speed.y = -this.speed.y;
+        }
+        // bottom of game
+        if(this.position.y > this.gameHeight - this.size){
+            this.game.lives--;
+            this.reset();
         }
 
         if(detectCollision(this, this.game.paddle)){
