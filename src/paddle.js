@@ -3,7 +3,7 @@ class Paddle {
         this.width = 150;
         this.height = 30;
         this.maxSpeed = 10;
-        this.currentSpeed = 10;
+        this.currentSpeed = 0;
         this.gameWidth = gameWidth;
 
         this.position = {
@@ -30,7 +30,7 @@ class Paddle {
     }
 
     update(deltaTime){
-        if(!deltaTime) return;
+        // if(!deltaTime) return;
         this.position.x += this.currentSpeed;// 5 / deltaTime;
         if(this.position.x <0){
             this.position.x = 0;

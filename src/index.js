@@ -15,19 +15,18 @@ paddle.draw(ctx);
 
 new InputHandler(paddle);
 let lastTime = 0;
-
-//images
-let imgball = document.getElementById('img_ball');
+let ball = new Ball(GAME_WIDTH, GAME_HEIGHT);
 
 function gameLoop(timestamp){
     let deltatime = timestamp - lastTime;
     lastTime = timestamp;
-    ctx.clearRect(0,0,800,600);
+    ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     paddle.update(deltatime);
     paddle.draw(ctx);
-    ctx.drawImage(imgball, 10, 10, 16, 16);
+    ball.update(deltatime);
+    ball.draw(ctx);
 
     requestAnimationFrame(gameLoop);
 }
-paddle.stop();
-gameLoop();
+// paddle.stop();
+requestAnimationFrame(gameLoop);
