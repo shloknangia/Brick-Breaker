@@ -3,7 +3,7 @@ class Brick {
         this.image = document.getElementById('img_brick');
         this.position = position;
         this.size = {
-            width: 52,
+            width: 80,
             height: 24,
         };
         
