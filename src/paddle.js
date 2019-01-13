@@ -1,14 +1,14 @@
 class Paddle {
-    constructor(gameWidth, gameHeight){
+    constructor(game){
         this.width = 150;
         this.height = 30;
         this.maxSpeed = 10;
         this.currentSpeed = 0;
-        this.gameWidth = gameWidth;
+        this.gameWidth = game.gameWidth;
 
         this.position = {
-            x: (gameWidth/2 - this.width/2),
-            y: (gameHeight - this.height - 10),
+            x: (game.gameWidth/2 - this.width/2),
+            y: (game.gameHeight - this.height - 10),
         }
     }
 

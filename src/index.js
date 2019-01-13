@@ -10,21 +10,20 @@ const GAME_HEIGHT = 600;
 // ctx.fillRect(20, 20, 20, 10);
 // ctx.fillRect(100, 100, 50, 50);
 
-let paddle = new Paddle(GAME_WIDTH, GAME_HEIGHT);
-paddle.draw(ctx); 
+// paddle.draw(ctx); 
+let game = new Game(GAME_WIDTH, GAME_HEIGHT);
+game.start();
 
-new InputHandler(paddle);
 let lastTime = 0;
-let ball = new Ball(GAME_WIDTH, GAME_HEIGHT);
+
 
 function gameLoop(timestamp){
     let deltatime = timestamp - lastTime;
     lastTime = timestamp;
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
-    paddle.update(deltatime);
-    paddle.draw(ctx);
-    ball.update(deltatime);
-    ball.draw(ctx);
+    
+    game.update(deltatime);
+    game.draw(ctx);
 
     requestAnimationFrame(gameLoop);
 }
